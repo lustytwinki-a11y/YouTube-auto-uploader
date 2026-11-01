@@ -1,3 +1,5 @@
+from flask import Flask
+import threading
 import os
 import time
 import pickle
@@ -8,10 +10,12 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-
+app = Flask(__name__)
+@app.route("/")
+def index():
+return "Bot is running!"
 # Environment variable se API key fetch karein
 api_key = os.environ.get("GEMINI_API_KEY")
-
 if not api_key:
     raise ValueError("GEMINI_API_KEY environment variable nahi mila. Kripya Render settings check karein.")
 
@@ -169,8 +173,16 @@ if __name__ == "__main__":
 
     # हर रोज़ रात के 12:00 बजे के लिए शेड्यूल
     schedule.every().day.at("00:00").do(daily_job)
-
+def run_bot():
     while True:
         schedule.run_pending()
-        time.sleep(30)
+        time.sleep(1)
+
+
+if __name__ == "__main__":
+    threading.Thread(target=run_bot, daemon=True).start()
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+
+
+
   
