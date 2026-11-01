@@ -9,12 +9,15 @@ from googleapiclient.http import MediaFileUpload
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
-# ================= 1. कॉन्फ़िगरेशन =================
-# आपकी Google AI Studio API Key:
+# Environment variable se API key fetch karein
+api_key = os.environ.get("GEMINI_API_KEY")
 
+if not api_key:
+    raise ValueError("GEMINI_API_KEY environment variable nahi mila. Kripya Render settings check karein.")
 
-# Gemini & Veo क्लाइंट
-client = genai.Client(api_key=GOOGLE_API_KEY)
+# Gemini client initialize karein
+client = genai.Client(api_key=api_key)
+
 
 # YouTube API सेटिंग्स
 YOUTUBE_SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
