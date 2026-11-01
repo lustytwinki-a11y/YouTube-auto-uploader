@@ -172,7 +172,7 @@ if __name__ == "__main__":
     # daily_job()
 
     # हर रोज़ रात के 12:00 बजे के लिए शेड्यूल
-    schedule.every().2.hours.at.do(daily_job)
+    schedule.every(5).minutes.do(daily_job)
 def run_bot():
     while True:
         schedule.run_pending()
