@@ -13,7 +13,7 @@ from google.auth.transport.requests import Request
 app = Flask(__name__)
 @app.route("/")
 def index():
-return "Bot is running!"
+            return "Bot is running!"
 # Environment variable se API key fetch karein
 api_key = os.environ.get("GEMINI_API_KEY")
 if not api_key:
